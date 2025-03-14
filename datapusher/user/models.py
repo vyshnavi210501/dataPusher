@@ -18,3 +18,14 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+
+class Role(models.Model):
+    class RoleTypes(models.TextChoices):
+        ADMIN = "Admin", "Admin"
+        NORMAL_USER = "Normal User", "Normal User"
+    role_name=models.CharField(choices=RoleTypes.choices,unique=True,max_length=20)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.role_name
